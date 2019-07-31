@@ -1,0 +1,132 @@
+.exchange {
+	border: 1px solid black;
+	background: lightgrey;
+	margin: 30px;
+	padding: 5px;
+	border-radius: 15px;
+}
+
+.asset {
+	display: flex;
+	justify-content: space-between;
+	margin: 5px;
+}
+
+.asset img {
+	height: 32px;
+	width: 32px;
+}
+
+.addasset {
+	text-align: left;
+
+}
+
+.icoaddasset {
+	height: 20px;
+	width: 20px;
+}
+
+.valototal {
+	text-align: right;
+}
+
+.cryptologos img {
+	margin: 5px;
+
+
+}
+
+.crypto {
+	margin: 5px;
+	flex-grow: 0;
+}
+
+.crypto img {
+	margin:  5px;
+	padding: 3px;
+}
+
+.crypto img:hover {
+	border: lightblue 10px solid;
+	border-radius: 50%;
+}
+
+.crypto:hover {
+
+}
+
+.addassetwindow {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.quantitywindow {
+	margin-top: 30px;
+}
+
+#quantity {
+	margin-top: 30px;
+}
+
+.addbutton {
+	margin: 30px;
+}
+
+.coincheckboxes input {
+    visibility:hidden;
+}
+
+.coincheckboxes label {
+	padding: 30px;
+	background-color: white;
+	opacity: 0.5;
+	border: 1px solid black;
+}
+
+.coincheckboxes label:hover{
+
+	opacity: 1;
+}
+
+.coincheckboxes  input:checked + label {
+    background: white;
+    padding: 30px;
+    opacity: 1;
+    border: 3px solid lightblue;
+}
+
+
+.exchangecheckboxes input {
+    visibility:hidden;
+}
+
+.exchangecheckboxes label {
+	padding: 30px;
+	background-color: white;
+	opacity: 0.5;
+	border: 1px solid black;
+}
+
+.exchangecheckboxes label:hover{
+
+	opacity: 1;
+}
+
+.exchangecheckboxes  input:checked + label {
+    background: white;
+    padding: 30px;
+    opacity: 1;
+    border: 2px solid lightblue;
+}
+
+#pickcryptoform {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#pickexchangeform {
+	display: flex;
+	flex-wrap: wrap;
+}

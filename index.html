@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>CryptoFocus</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="exchangesetassets.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="title"><h1>Mon Portefeuille 1</h1></div>
+		
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addExModal">
+			Ajouter un exchange
+		</button>
+		<br>
+		<br>
+		<button type="button" onclick="" id="seedbutton" class="btn btn-outline-primary">
+			Make seeds
+		</button>
+
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="addExModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ajouter un exchange</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="exchangecheckboxes">
+							<form id="pickexchangeform">
+
+								<div>
+									<input type="radio" id="kraken" name="pickexchange" value="kraken">
+									<label  for="kraken">Kraken</label>
+								</div>
+
+								<div>
+									<input type="radio" id="binance" name="pickexchange" value="binance">
+									<label  for="binance">Binance</label>
+								</div>
+
+								<div>
+									<input type="radio" id="poloniex" name="pickexchange" value="poloniex">
+									<label  for="poloniex">Poloniex</label>
+								</div>
+
+
+								<div>
+									<input type="radio" id="bitmex" name="pickexchange" value="bitmex">
+									<label for="bitmex">Bitmex</label>
+								</div>
+								<div>
+									<input type="radio" id="bittrex" name="pickexchange" value="bittrex">
+									<label for="bittrex">Bittrex</label>
+								</div>
+								<div>
+									<input type="radio" id="cryptopia" name="pickexchange" value="cryptopia">
+									<label for="cryptopia">Cryptopia</label>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+						<button type="button" id="modalexokbutton" data-dismiss="modal" class="btn btn-outline-success btn">Ajouter exchange</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal d'ajout d'asset -->
+		<div class="modal fade" id="AddAssetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ajouter un asset</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						
+					<div class="coincheckboxes">
+			<p>Choisissez une crypto</p>
+			<form id="pickcryptoform">
+				<div>
+					<input type="radio" id="btc" name="pickcrypto" value="btc">
+					<label for="btc"><img src="./images/crypto_logos/btc.png" alt="bitcoin">Bitcoin (BTC) </label>
+				</div>
+				<div>
+					<input type="radio" id="ltc" name="pickcrypto" value="ltc">
+					<label for="ltc"><img src="./images/crypto_logos/ltc.png" alt="ltc">Litecoin (LTC)</label>
+				</div>
+				<div>
+					<input type="radio" id="eth" name="pickcrypto" value="eth">
+					<label for="eth"><img src="./images/crypto_logos/eth.png" alt="eth">Ethereum (ETH)</label>
+				</div>
+				<div>
+					<input type="radio" id="dash" name="pickcrypto" value="dash">
+					<label for="dash"><img src="./images/crypto_logos/dash.png" alt="dash">Dash Coin (DASH)</label>
+				</div>
+				<div>
+					<input type="radio" id="ark" name="pickcrypto" value="ark">
+					<label for="ark"><img src="./images/crypto_logos/ark.png" alt="ark">Ark Coin (ARK)</label>
+				</div>
+				<div>
+					<input type="radio" id="doge" name="pickcrypto" value="doge">
+					<label for="doge"><img src="./images/crypto_logos/doge.png" alt="doge">Doge Coin (DOGE)</label>
+				</div>
+
+			</form>
+			<!-- <button type="button" onclick="AddAsset()" id="okbutton" class="btn btn-primary btn-lg"> Test !</button> -->
+		</div>
+		<div class="quantitywindow">
+			<h2>Quelle quantité de [crypto_name] avez-vous sur [exchange_name] ?</h2>
+			<input type="number" id="quantity"> <!-- <button type="button" onclick="AddQuantity()" class="btn btn-primary">Test !</button> -->
+		</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+						<button type="button" id="newassetokbutton" data-dismiss="modal" class="btn btn-outline-success btn">Sauvegarder</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<!-- Modal de modification d'asset -->
+		<div class="modal fade" id="UpdateAssetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Mettre à jour</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Entrez la nouvelle quantité : </p>
+						<input
+                        class="form-control"
+                        type="number"
+                        id="txtQtyUpdate"
+                      />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+						<button type="button" id="updateassetokbutton" data-dismiss="modal" class="btn btn-outline-success btn">Sauvegarder</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- Table of exchanges -->
+		<table class="table table-hover" id="tblExchanges">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Add asset</th>
+				</tr>
+			</thead>
+			<tbody id="tblExchangesBody">
+			</tbody>
+		</table>
+		<!-- Table of assets -->
+		<table class="table table-hover" id="tblAssets">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Exchange</th>
+					<th scope="col">Coin</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Prixeuro</th>
+					<th scope="col">Prixbtc</th>
+					<th scope="col">Totaleuro</th>
+					<th scope="col">Modifier</th>
+				</tr>
+			</thead>
+			<tbody id="tblAssetsBody">
+			</tbody>
+		</table>
+
+
+
+
+		</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="./fetch.js"></script>
+	<script src="./classes.js"></script>
+	<script src="./script.js"></script>
+	<!-- <script src="./persistence.js"></script> -->
+	<script src="./affichage.js"></script>
+	<script src="https://kit.fontawesome.com/f01baf4271.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+</body>
+</html>

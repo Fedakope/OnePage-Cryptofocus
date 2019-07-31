@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>IMC Calculator</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="exchangesetassets.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+		<a class="navbar-brand" href="index.html">
+			<img src="./images/m2ilogo.png" />
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.html">Acceuil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="addexchange.html">Ajouter un exchange</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="prime.html">Prime Calculator</a>
+				</li>
+				<li class="nav-item dropdown">
+					<img class="avatar dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="./images/bob.jpg" />
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Profile</a>
+						<a class="dropdown-item" href="#">Se deconnecter</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+
+
+
+	<div class="container">
+		<div class="title"><h1>Mon Portefeuille 1</h1></div>
+		<div class="subtitle"><h2>Ajouter une cryptomonnaie sur [exchange_name]</h2></div>
+
+			<div id="pathtestbox"></div>
+			<button type="button" onclick="PathName()">Test pathname</button>
+
+		<div class="coincheckboxes">
+			<p>Choisissez une crypto</p>
+			<form id="pickcryptoform">
+				<div>
+					<input type="radio" id="btc" name="pickcrypto" value="btc">
+					<label for="btc"><img src="./images/crypto_logos/btc.png" alt="bitcoin">Bitcoin (BTC) </label>
+				</div>
+				<div>
+					<input type="radio" id="ltc" name="pickcrypto" value="ltc">
+					<label for="ltc"><img src="./images/crypto_logos/ltc.png" alt="ltc">Litecoin (LTC)</label>
+				</div>
+				<div>
+					<input type="radio" id="eth" name="pickcrypto" value="eth">
+					<label for="eth"><img src="./images/crypto_logos/eth.png" alt="eth">Ethereum (ETH)</label>
+				</div>
+				<div>
+					<input type="radio" id="dash" name="pickcrypto" value="dash">
+					<label for="dash"><img src="./images/crypto_logos/dash.png" alt="dash">Dash Coin (DASH)</label>
+				</div>
+				<div>
+					<input type="radio" id="ark" name="pickcrypto" value="ark">
+					<label for="ark"><img src="./images/crypto_logos/ark.png" alt="ark">Ark Coin (ARK)</label>
+				</div>
+				<div>
+					<input type="radio" id="doge" name="pickcrypto" value="doge">
+					<label for="doge"><img src="./images/crypto_logos/doge.png" alt="doge">Doge Coin (DOGE)</label>
+				</div>
+
+			</form>
+			<!-- <button type="button" onclick="AddAsset()" id="okbutton" class="btn btn-primary btn-lg"> Test !</button> -->
+		</div>
+		<div class="quantitywindow">
+			<h2>Quelle quantité de [crypto_name] avez-vous sur [exchange_name] ?</h2>
+			<input type="number" id="quantity"> <!-- <button type="button" onclick="AddQuantity()" class="btn btn-primary">Test !</button> -->
+		</div>
+	
+		<button onclick="LoadAsset() + ToAsset()" class="btn btn-primary btn-lg" type="button">GET DATAS </button>
+
+		<button type="button" onclick="CreerAsset() + SaveAsset()" class="btn btn-primary btn-lg addbutton"> ADD</button>
+
+		
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<div class="footer fixed-bottom">
+		<div class="footer-links">
+			<a href="#"><i class="fab fa-github"></i></a>
+			<a href="#"><i class="fab fa-instagram"></i></a>
+			<a href="#"><i class="fab fa-facebook"></i></a>
+			<a href="#"><i class="fab fa-twitter"></i></a>
+			<a href="#"><i class="fab fa-linkedin"></i></a>
+		</div>
+		<div class="footer-copyright">
+			This footer is made with <i class="fas fa-heart"></i> by Nil
+		</div>
+	</div>
+
+	<script src="./persistence.js"></script>
+	<script src="./script.js"></script>
+	<script src="./classes.js"></script>
+	<script src="https://kit.fontawesome.com/f01baf4271.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+</body>
+</html>

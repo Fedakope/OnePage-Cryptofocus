@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>IMC Calculator</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="exchangesetassets.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+		<a class="navbar-brand" href="index.html">
+			<img src="./images/m2ilogo.png" />
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.html">Acceuil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="addexchange.html">Ajouter un exchange</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="prime.html">Prime Calculator</a>
+				</li>
+				<li class="nav-item dropdown">
+					<img class="avatar dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="./images/bob.jpg" />
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Profile</a>
+						<a class="dropdown-item" href="#">Se deconnecter</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+
+
+
+	<div class="container">
+		<div class="title"><h1>Mon Portefeuille 1</h1></div>
+		<div class="subtitle"><h2>Choisissez un exchange</h2></div>
+
+
+		<div class="exchangecheckboxes">
+			<form id="pickexchangeform">
+				<div>
+					<input type="radio" id="kraken" name="pickexchange" value="kraken">
+					<label for="kraken">Kraken</label>
+				</div>
+
+				<div>
+					<input type="radio" id="binance" name="pickexchange" value="binance">
+					<label for="binance">Binance</label>
+				</div>
+
+				<div>
+					<input type="radio" id="poloniex" name="pickexchange" value="poloniex">
+					<label for="poloniex">Poloniex</label>
+				</div>
+				<div>
+					<input type="radio" id="bitmex" name="pickexchange" value="bitmex">
+					<label for="bitmex">Bitmex</label>
+				</div>
+				<div>
+					<input type="radio" id="bittrex" name="pickexchange" value="bittrex">
+					<label for="bittrex">Bittrex</label>
+				</div>
+				<div>
+					<input type="radio" id="cryptopia" name="pickexchange" value="cryptopia">
+					<label for="cryptopia">Cryptopia</label>
+				</div>
+			</form>
+
+			<button onclick=" LoadExchange() + ToEx()" class="btn btn-primary btn-lg" type="button">GET DATAS </button>
+			<button type="button" onclick="CreerExchange() + SaveExchange()" id="okbutton" class="btn btn-primary btn-lg">Ajouter exchange</button>
+			
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<div class="footer fixed-bottom">
+		<div class="footer-links">
+			<a href="#"><i class="fab fa-github"></i></a>
+			<a href="#"><i class="fab fa-instagram"></i></a>
+			<a href="#"><i class="fab fa-facebook"></i></a>
+			<a href="#"><i class="fab fa-twitter"></i></a>
+			<a href="#"><i class="fab fa-linkedin"></i></a>
+		</div>
+		<div class="footer-copyright">
+			This footer is made with <i class="fas fa-heart"></i> by Nil
+		</div>
+	</div>
+	<script src="./persistence.js"></script>
+	<script src="./classes.js"></script>
+	<script src="./script.js"></script>
+	<script src="https://kit.fontawesome.com/f01baf4271.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+</body>
+</html>
