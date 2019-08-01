@@ -44,12 +44,6 @@ function GenerationTableauExchanges(tableauDeDonnees) {
 
 
 
-
-
-
-
-
-
 function GenerationTableauAssets(assetList) {
 	$("#tblAssetsBody").empty(); // clean le tableau
 	for (var i = 0; i < assetList.length; i++) {
@@ -67,6 +61,75 @@ function GenerationTableauAssets(assetList) {
 
 	}
 }
+
+// test gteneration specifique
+function GenerationTableauAssetsGlobal() {
+	alert('salut')
+	for (var i=0; i < exchangeList.length;i++) {
+		var q = exchangeList[i]
+		let chaine = "#tblAssetsBody"+ q.Name
+		alert(chaine)
+			let assetList = q.Assets()
+		$("#tblAssetsBody"+ q.Name).empty(); // clean le tableau
+		for (var j = 0; j < assetList.length; j++) {
+			let ligne = $("<tr></tr>");
+			ligne.append($("<td></td>").text(assetList[j].Id_Asset));
+			ligne.append($("<td></td>").text(assetList[j].Exchange));
+			ligne.append($("<td></td>").text(assetList[j].Coin));
+			ligne.append($("<td></td>").text(assetList[j].Quantity));
+			ligne.append($("<td></td>").text(assetList[j].Prixeuro));
+			ligne.append($("<td></td>").text(assetList[j].Prixbtc));
+			ligne.append($("<td></td>").text(assetList[j].Totaleuro));
+			ligne.append($("<td></td>").append($("<button></button>")
+				.addClass('btn btn-link update').attr("data-idAsset",  assetList[j].Id_Asset).html("Modifier") ))
+			$("#tblAssetsBody"+ q.Name).append(ligne);
+			console.log(ligne)
+		}
+	}
+}
+
+
+// generation tableau exhcanges + assets 
+function GenerationTableauGlobal() {
+	document.getElementById("injectexchangehere").innerHTML = ""
+	console.log("je suis dans DisplayEx")
+	for (var i=0; i < exchangeList.length;i++)
+	{
+		var p = exchangeList[i];
+		console.log("exchange " + i + " " + p.Name)
+
+		document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p>`;
+		document.getElementById("injectexchangehere").innerHTML +=
+		`
+		<table class="table table-hover" id="tblAssets">
+		<thead>
+		<tr>
+		<th scope="col">ID</th>
+		<th scope="col">Exchange</th>
+		<th scope="col">Coin</th>
+		<th scope="col">Quantity</th>
+		<th scope="col">Prixeuro</th>
+		<th scope="col">Prixbtc</th>
+		<th scope="col">Totaleuro</th>
+		<th scope="col">Modifier</th>
+		</tr>
+		</thead>
+		<tbody id="tblAssetsBody${p.Name}">
+		</tbody>
+		</table>
+		`	
+	}	
+}
+
+
+
+
+// 
+
+
+
+
+
 
 
 
@@ -116,6 +179,18 @@ function RecupereElementTableauEx(tableau, id) {
 
 
 function DisplayEx() {
+	document.getElementById("injectexchangehere").innerHTML = ""
+	console.log("je suis dans DisplayEx")
+	for (var i=0; i < exchangeList.length;i++)
+	{
+		var p = exchangeList[i];
+		console.log("exchange " + i + " " + p.Name)
+		document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p> <a href=addasset.html?name=${p.Name}> ajouter asset pour ${p.Name} </a> </div class="exchange">`;
+	}
+}
+
+
+function Display() {
 	document.getElementById("injectexchangehere").innerHTML = ""
 	console.log("je suis dans DisplayEx")
 	for (var i=0; i < exchangeList.length;i++)
