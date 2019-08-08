@@ -1,7 +1,7 @@
 .exchange {
-	border: 1px solid black;
-	background: lightgrey;
-	margin: 30px;
+	border: 0px solid black;
+	background: white;
+	margin: 30px 0px;
 	padding: 5px;
 	border-radius: 15px;
 }

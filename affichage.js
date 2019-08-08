@@ -1,27 +1,44 @@
 var id_exchangeTemp;
+$(".js-example-placeholder-single").select2({
+	placeholder: "Select a state",
+	allowClear: true
+});
+
+
+
+
+
 
 $(document).ready(function() {
 	GenerationTableauExchanges(exchangeList,$("#tblExchangesBody"));
 
+
+
+
+
 	$("#seedbutton").on("click", function() {	
 		Seeds();
-		GenerationTableauExchanges(exchangeList);
-		GenerationTableauAssets(assetList)
+		GeneratePage();
 	});
 
 	$("#modalexokbutton").on("click", function() {	
 		CreerExchange()
-		GenerationTableauExchanges(exchangeList);
-		GenerationTableauAssets(assetList)
+		GeneratePage()
 	});
 
 	$("#newassetokbutton").on("click", function() {	
-		NewAsset();
-		GenerationTableauExchanges(exchangeList);
-		GenerationTableauAssets(assetList)
+		NewAsset();	
+		GeneratePage()
+	});	
+
+
+	$("#Doit").on("click", function() {	
+	FetchPrices()
+	});	
+
+	$("#Doit2").on("click", function() {	
+		Test2();
 	});
-
-
 
 
 
@@ -30,6 +47,13 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+// Generation tableau des echanges avec liens add asset
 function GenerationTableauExchanges(tableauDeDonnees) {
 	$("#tblExchangesBody").empty();
 	for(exchange of tableauDeDonnees) {
@@ -43,7 +67,7 @@ function GenerationTableauExchanges(tableauDeDonnees) {
 }
 
 
-
+// Generation tableau des assets avec liens modifier
 function GenerationTableauAssets(assetList) {
 	$("#tblAssetsBody").empty(); // clean le tableau
 	for (var i = 0; i < assetList.length; i++) {
@@ -62,19 +86,17 @@ function GenerationTableauAssets(assetList) {
 	}
 }
 
-// test gteneration specifique
+// GENERATION ASSETS FINAL - a faire apres generation tableau global 
 function GenerationTableauAssetsGlobal() {
-	alert('salut')
 	for (var i=0; i < exchangeList.length;i++) {
 		var q = exchangeList[i]
 		let chaine = "#tblAssetsBody"+ q.Name
-		alert(chaine)
-			let assetList = q.Assets()
+			let assetList = q.Assets() //pour remplir chaque case d'exchanges
 		$("#tblAssetsBody"+ q.Name).empty(); // clean le tableau
 		for (var j = 0; j < assetList.length; j++) {
 			let ligne = $("<tr></tr>");
-			ligne.append($("<td></td>").text(assetList[j].Id_Asset));
-			ligne.append($("<td></td>").text(assetList[j].Exchange));
+			//ligne.append($("<td></td>").text(assetList[j].Id_Asset));
+			//ligne.append($("<td></td>").text(assetList[j].Exchange));
 			ligne.append($("<td></td>").text(assetList[j].Coin));
 			ligne.append($("<td></td>").text(assetList[j].Quantity));
 			ligne.append($("<td></td>").text(assetList[j].Prixeuro));
@@ -83,29 +105,34 @@ function GenerationTableauAssetsGlobal() {
 			ligne.append($("<td></td>").append($("<button></button>")
 				.addClass('btn btn-link update').attr("data-idAsset",  assetList[j].Id_Asset).html("Modifier") ))
 			$("#tblAssetsBody"+ q.Name).append(ligne);
-			console.log(ligne)
 		}
 	}
 }
 
 
-// generation tableau exhcanges + assets 
+// generation globale
+function GeneratePage() {
+	GenerationTableauGlobal();
+	GenerationTableauAssetsGlobal();
+
+} 	
+
+// generation nom d'exchange + header tableau asset 
 function GenerationTableauGlobal() {
 	document.getElementById("injectexchangehere").innerHTML = ""
-	console.log("je suis dans DisplayEx")
+
 	for (var i=0; i < exchangeList.length;i++)
 	{
 		var p = exchangeList[i];
-		console.log("exchange " + i + " " + p.Name)
 
-		document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p>`;
+
+		document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p style="font-size :40px; text-transform: capitalize;"> ${p.Name} <p>`;
 		document.getElementById("injectexchangehere").innerHTML +=
 		`
 		<table class="table table-hover" id="tblAssets">
 		<thead>
 		<tr>
-		<th scope="col">ID</th>
-		<th scope="col">Exchange</th>
+		
 		<th scope="col">Coin</th>
 		<th scope="col">Quantity</th>
 		<th scope="col">Prixeuro</th>
@@ -118,14 +145,78 @@ function GenerationTableauGlobal() {
 		</tbody>
 		</table>
 		`	
-	}	
-}
+
+
+		$("#injectexchangehere").append($("<button></button>")
+			.addClass('btn btn-link upasset').attr({
+				"data-idExchange": p.Id_Exchange,
+				"data-toggle": "collapse",
+				"data-target": "#collapseExample"+p.Name,   // cible le bon collapse pour chaque exchange
+				"aria-expanded": "false",
+				"aria-controls": "collapseExample"
+
+			}).html("Ajouter un asset"))
+
+
+
+		//inject les listes deroulantes avec les coins de chaque exchanges 
+		document.getElementById("injectexchangehere").innerHTML += `<div class="collapse" id="collapseExample${p.Name}">
+		<div class="card card-body">
+
+
+		
+		<div class="container" style="margin-top: 20px;">
+		<div class="row">
+		<div class="col-sm" style="text-align: right;">
+		<label for="favorite-animal">Monnaie : </label>
+		</div>
+		<div class="col-sm" style="">
+		<select class="js-example-basic-single" id="focusaddasset${p.Name}" name="state">
+		</select>
+		</div>
+		<div class="col-sm" style="text-align: right;">
+		<label for="favorite-animal2">Quantité : </label>
+		</div>
+		<div class="col-sm">
+		<input class="form-control" type="number" id="quantity${p.Name}">
+		</div>
+		<div class="col-sm">
+		<button type="button" id="okbuttonaddasset" nomex="${p.Name}" class="btn btn-outline-success btn">Ajouter</button>
+		</div>
+		</div>
+		</div>`
+
+		for(var j in p.Listing) {
+			document.getElementById(`focusaddasset${p.Name}`).innerHTML += `<option value="${p.Listing[j]}"> ${j} (${p.Listing[j]})</option>`
+		}
+		document.getElementById(`focusaddasset${p.Name}`).innerHTML += 	"</select> </div> </div>"
+
+
+// on clik sur le couton valider pour ajouter un asset a un exchange
+$("[nomex]").on("click", function() {
+	console.log("hello World")
+	var tempName = $(this).attr("nomex");
+	console.log(tempName)
+	var tempQty = ($("#quantity"+tempName).val())
+	console.log(tempQty)
+	var tempCoin = $('#focusaddasset'+tempName +' :selected').val();
+	console.log(tempCoin)
+	var tempAsset = new Asset(GetAssetMaxId(), tempName, tempCoin, tempQty, "", "", "");
+	console.log(tempAsset)
+	Swal.fire("asset bien ajouté ("+tempQty+tempCoin+"). Mettre swal de feu ici ou alert bootstrap")
+	// AJOUTER ICI LES FETCH ET AFFICHA DES PRIX 
+	GeneratePage()
+})
 
 
 
 
-// 
 
+
+} // fin cboucle for 	
+
+
+} // fin fonction 
 
 
 
@@ -135,7 +226,7 @@ function GenerationTableauGlobal() {
 
 // update asset modal
 $("#tblAssets tbody").on("click", ".update", function() {
-
+	alert("je suis dans : // update asset modal")
 	var id_asset = $(this).attr("data-idAsset");
 	$("#UpdateAssetModal").modal("show");
 	var asset = RecupereElementTableau(assetList, id_asset);
@@ -148,6 +239,24 @@ $("#tblAssets tbody").on("click", ".update", function() {
 	});
 });
 
+var assetTemp;
+var id_assetTemp ;
+// update asset modal POUR TABLEAU FINAL
+$("#injectexchangehere").on("click", ".update", function() {
+	id_assetTemp = $(this).attr("data-idAsset");
+	$("#UpdateAssetModal").modal("show");
+	assetTemp = RecupereElementTableau(assetList, id_assetTemp);
+	$("#txtQtyUpdate").val(assetTemp.Quantity);
+	
+});
+
+
+$("#updateassetokbutton").on("click", function() {
+	var newqty = $("#txtQtyUpdate").val();
+	assetTemp.Quantity = newqty
+
+	GeneratePage()
+});
 
 // add asset modal 
 $("#tblExchanges tbody").on("click", ".update", function() {
@@ -155,12 +264,20 @@ $("#tblExchanges tbody").on("click", ".update", function() {
 	id_exchangeTemp = $(this).attr("data-idExchange");
 	var exchange = RecupereElementTableauEx(exchangeList, id_exchange);
 	$("#AddAssetModal").modal("show");
-
-
-
-	// var exchange = RecupereElementTableau(exchangeList, id_exchange);
-	
+	// var exchange = RecupereElementTableau(exchangeList, id_exchange);	
 });
+
+
+
+// add asset modal POUR TABLEAU FINAL
+$("#injectexchangehere").on("click", ".upasset", function() {
+	var id_exchange = $(this).attr("data-idExchange");
+	id_exchangeTemp = $(this).attr("data-idExchange");
+	var exchange = RecupereElementTableauEx(exchangeList, id_exchange);
+	$('.js-example-basic-single').select2();
+	// $("#AddAssetModal").modal("show"); A DECOMMENTER POUR REVENIR A LA MODAL D'AJOUT D'ASSET
+});
+
 
 
 
@@ -180,7 +297,6 @@ function RecupereElementTableauEx(tableau, id) {
 
 function DisplayEx() {
 	document.getElementById("injectexchangehere").innerHTML = ""
-	console.log("je suis dans DisplayEx")
 	for (var i=0; i < exchangeList.length;i++)
 	{
 		var p = exchangeList[i];
@@ -192,7 +308,6 @@ function DisplayEx() {
 
 function Display() {
 	document.getElementById("injectexchangehere").innerHTML = ""
-	console.log("je suis dans DisplayEx")
 	for (var i=0; i < exchangeList.length;i++)
 	{
 		var p = exchangeList[i];
@@ -202,46 +317,6 @@ function Display() {
 }
 
 
-
-/*function InjectExchange() {
-	document.getElementById("injectexchangehere").innerHTML = ""
-	console.log("Je suis dans la fonction InjectExchange")
-	if (sessionStorage.getItem("tableauExchange")==null)
-		var tableauExchange = []
-	else
-		var tableauExchange=JSON.parse(sessionStorage.getItem("tableauExchange"))
-
-	console.log(tableauExchange)
-
-	
-
-	for (var i=0; i < tableauExchange.length;i++)
-	{
-		var p = tableauExchange[i];
-		console.log("exchange " + i + " " + p.Name)
-		document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p> <a href=addasset.html?name=${p.Name}> ajouter asset pour ${p.Name} </a> </div class="exchange">`;
-	}
-}*/
-
-/*function InjectAsset() {
-	document.getElementById("injectassethere").innerHTML = ""
-	console.log("Je suis dans la fonction InjectAsset")
-	if (sessionStorage.getItem("tableauAsset")==null)
-		var tableauAsset = []
-	else
-		var tableauAsset=JSON.parse(sessionStorage.getItem("tableauAsset"))
-
-	console.log(tableauAsset)
-
-	
-
-	for (var i=0; i < tableauAsset.length;i++)
-	{
-		var q = tableauAsset[i];
-		console.log("asset " + i + " " + q.Exchange)
-		document.getElementById("injectassethere").innerHTML += `<p> Asset : ${q.Quantity} ${q.Coin} sur ${q.Exchange} valant ${q.Totaleuro} </p>`
-	}
-}*/
 
 function DisplayAss() {
 	document.getElementById("injectassethere").innerHTML = ""
@@ -279,10 +354,6 @@ function DisplayBoth() {
 
 		for (var j=0; j < assListTemp.length;j++) {
 			console.log (`Sur l'exchange ${p.Name} il y'a ${assListTemp.length} asset(s) : ${assListTemp[i].Quantity} ${assListTemp[i].Coin} `)
-			// document.getElementById("injectexchangehere").innerHTML += `Sur l'exchange ${p.Name} il y'a ${assListTemp.length} assets : ${assListTemp[i].Quantity} ${assListTemp[i].Coin} `;
-			/*document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p> `;
-			document.getElementById("injectexchangehere").innerHTML += `Sur l'exchange ${p.Name} il y'a ${assListTemp.length} asset(s) : ${assListTemp[i].Quantity} ${assListTemp[i].Coin} `
-			document.getElementById("injectexchangehere").innerHTML += `<a href=addasset.html?name=${p.Name}> ajouter asset pour ${p.Name} </a> </div class="exchange">`*/
 
 			document.getElementById("injectexchangehere").innerHTML += `
 			<div class="asset">
@@ -315,9 +386,6 @@ function DisplayBoth() {
 		</div>
 		`
 
-		// console.log (`Sur l'exchange ${p.Name} il y'a ${assListTemp.length} assets : ${assListTemp[0].Quantity} ${assListTemp[0].Coin} `)
-		// document.getElementById("injectexchangehere").innerHTML += `<div class="exchange"> <p> Nom de l'exchange : ${p.Name} </p> <a href=addasset.html?name=${p.Name}> ajouter asset pour ${p.Name} </a> </div class="exchange">`;
-		
-		// document.getElementById("injectexchangehere").innerHTML += `Sur l'exchange ${p.Name} il y'a ${assListTemp.length} assets : ${assListTemp[0].Quantity} ${assListTemp[0].Coin} `;
 	}
 }
+

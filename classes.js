@@ -1,13 +1,15 @@
 // EXCHANGES 
 var exchangeList = [];
-function Exchange(id_exchange, name){
+function Exchange(id_exchange, name, listing){
+	id_exchange = GetExchangeMaxId()+1
 	this.Id_Exchange = id_exchange;
 	this.Name = name;
+	this.Listing = listing
 	exchangeList.push(this);
 
 	this.Assets = function() {
 		lst = [];
-		temp = this.Name
+		temp = this.Name	
 		assetList.forEach(function(element){
 			if (element.Exchange == temp) {
 				lst.push(element)
@@ -26,8 +28,11 @@ function ListExchanges(){
 
 
 function CreerExchange(name){
+	var xc = {"Bitcoin": "BTC", "Augur": "REP", "Bitcoin Cash": "BCH", "Cardano": "ADA", "Cosmos" : "ATOM", "Dash" : "DASH", "Dogecoin" : "DOGE", 
+"EOS" : "EOS", "Ethereum" : "ETH", "Ethereum Classic" : "ETC", "Gnosis" : "GNO", "Litecoin": "LTC", "Monero":"XMR", "Qtum":"QTUM", 
+"Ripple":"XRP", "Stellar Lumens":"XML", "Tether (Omni Layer)":"USDT", "Tezos":"XTZ", "Watermelon":"MLN", "Zcash":"ZEC"};
 	var name = document.querySelector('input[name="pickexchange"]:checked').value;
-	new Exchange(1, name);
+	new Exchange(1, name, xc);
 	// Swal.fire(name + " a bien été ajouté à la liste de vos exchanges");
 	Swal.fire({
 		type: 'success',
@@ -43,6 +48,7 @@ function CreerExchange(name){
 // ASSETS 
 var assetList = [];
 function Asset (id_asset, exchange, coin, quantity, prixeuro, prixbtc, totaleuro) {
+	id_asset = GetAssetMaxId()+1
 	this.Id_Asset = id_asset
 	this.Exchange = exchange;
 	this.Coin = coin;
@@ -111,26 +117,38 @@ function Injection() {
 
 
 
-
 // SEEDS
 
 function Seeds() {
 	assetList = [];
 	exchangeList = [];
-	var k = new Exchange(1, "kraken");
-	var b = new Exchange(2, "binance");
-	var p = new Exchange(3, "poloniex");
+
+	var kc = {"KrakenCoin": "KRC", "Augur": "REP", "Bitcoin Cash": "BCH", "Cardano": "ADA", "Cosmos" : "ATOM", "Dash" : "DASH", "Dogecoin" : "DOGE", 
+"EOS" : "EOS", "Ethereum" : "ETH", "Ethereum Classic" : "ETC", "Gnosis" : "GNO", "Litecoin": "LTC", "Monero":"XMR", "Qtum":"QTUM", 
+"Ripple":"XRP", "Stellar Lumens":"XML", "Tether (Omni Layer)":"USDT", "Tezos":"XTZ", "Watermelon":"MLN", "Zcash":"ZEC"};   
+
+	var bc = {"Biannce Coin": "BNB", "Augur": "REP", "Bitcoin Cash": "BCH", "Cardano": "ADA", "Cosmos" : "ATOM", "Dash" : "DASH", "Dogecoin" : "DOGE", 
+"EOS" : "EOS", "Ethereum" : "ETH", "Ethereum Classic" : "ETC", "Gnosis" : "GNO", "Litecoin": "LTC", "Monero":"XMR", "Qtum":"QTUM", 
+"Ripple":"XRP", "Stellar Lumens":"XML", "Tether (Omni Layer)":"USDT", "Tezos":"XTZ", "Watermelon":"MLN", "Zcash":"ZEC"}; 
+
+	var pc = {"Polocoin": "PLC", "Augur": "REP", "Bitcoin Cash": "BCH", "Cardano": "ADA", "Cosmos" : "ATOM", "Dash" : "DASH", "Dogecoin" : "DOGE", 
+"EOS" : "EOS", "Ethereum" : "ETH", "Ethereum Classic" : "ETC", "Gnosis" : "GNO", "Litecoin": "LTC", "Monero":"XMR", "Qtum":"QTUM", 
+"Ripple":"XRP", "Stellar Lumens":"XML", "Tether (Omni Layer)":"USDT", "Tezos":"XTZ", "Watermelon":"MLN", "Zcash":"ZEC"}; 
+	
+	var k = new Exchange(GetExchangeMaxId(), "kraken", kc);
+	var b = new Exchange(GetExchangeMaxId(), "binance", bc);
+	var p = new Exchange(GetExchangeMaxId(), "poloniex", pc);
 
 
-	var asset1 = new Asset(1, "kraken", "btc", 5, 12000, 150, 60000);
-	var asset2 = new Asset(2, "kraken", "xrp", 5, 24000, "", 120000);
-	var asset3 = new Asset(3, "kraken", "bch", 5, 6000, "", 3000);
-	var asset4 = new Asset(4, "kraken", "eth", 20, 300, "", 6000);
-	var asset5 = new Asset(5, "binance", "ada", 17000, "", 0.0045, 3000);
-	var asset6 = new Asset(6, "binance", "xmr", 17000, "", 0.0045, 3000);
-	var asset7 = new Asset(7, "binance", "dgb", 17000, "", 0.0045, 3000);
-	var asset8 = new Asset(8, "poloniex", "dgb", 17000, "", 0.0045, 3000);
-	var asset9 = new Asset(9, "poloniex", "dgb", 17000, "", 0.0045, 3000);
+	var asset1 = new Asset(GetAssetMaxId(), "kraken", "btc", 5, 12000, 150, 60000);
+	var asset2 = new Asset(GetAssetMaxId(), "kraken", "xrp", 5, 24000, "", 120000);
+	var asset3 = new Asset(GetAssetMaxId(), "kraken", "bch", 5, 6000, "", 3000);
+	var asset4 = new Asset(GetAssetMaxId(), "kraken", "eth", 20, 300, "", 6000);
+	var asset5 = new Asset(GetAssetMaxId(), "binance", "ada", 17000, "", 0.0045, 3000);
+	var asset6 = new Asset(GetAssetMaxId(), "binance", "xmr", 17000, "", 0.0045, 3000);
+	var asset7 = new Asset(GetAssetMaxId(), "binance", "dgb", 17000, "", 0.0045, 3000);
+	var asset8 = new Asset(GetAssetMaxId(), "poloniex", "dgb", 17000, "", 0.0045, 3000);
+	var asset9 = new Asset(GetAssetMaxId(), "poloniex", "dgb", 17000, "", 0.0045, 3000);
 
 	console.log("Seeds done : 3 exchanges, 9 assets")
 }
@@ -146,6 +164,38 @@ function PathName() {
 	return exname
 	
 }
+
+
+//Gestion des IDs TODO
+function GetAssetMaxId() {
+	if(assetList.length !== 0) {
+		let max = assetList[0].Id_Asset;
+		for (asset of assetList) {
+			if (asset.Id_Asset > max) {
+				max = asset.Id_Asset;	
+			}
+		}
+		return max;
+	} else {
+		return 0 
+	}
+}
+
+
+function GetExchangeMaxId() {
+	if(exchangeList.length !== 0) {
+		let max = exchangeList[0].Id_Exchange;
+		for (asset of exchangeList) {
+			if (asset.Id_Exchange > max) {
+				max = asset.Id_Exchange;	
+			}
+		}
+		return max;
+	} else {
+		return 0 
+	}
+}
+
 
 
 /*function GetExName(str) {
